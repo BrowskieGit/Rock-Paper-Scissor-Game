@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissor Game | Browskie</title>
+    <link href="img/Browsky.png" rel="icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+#text1, #text2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+    </style>
+  </head>
+  <body class="bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div class="container-fluid text-center">
+      <div class="container pt-10 m-auto text-white">
+        <h1 class="text-4xl mb-5">Browskie's Rock Paper Scissor</h1>
+        <h4 class="text-2xl font-light">Let's try beat our Browskie Bot</h4>
+      </div>
+
+      <div class="container m-auto playZone mt-5">
+        <div>
+          <img src="img/Robot_signs.gif" class="m-auto w-1/5" alt="Robot" />
+          <p class="text-white text-1xl my-5" id="result"></p>
+          <h4 class="text-2xl font-light text-white my-5">
+            Please select your choice:
+          </h4>
+        </div>
+        <div class="flex flex-nowrap gap-5 w-1/4 mx-auto my-5">
+          <img
+            src="img/Rock.png"
+            class="m-auto w-20 rounded-full cursor-pointer"
+            alt="Rock"
+            onclick="showResult('Rock')"
+          />
+          <img
+            src="img/Paper.png"
+            class="m-auto w-20 rounded-full cursor-pointer"
+            alt="Paper"
+            onclick="showResult('Paper')"
+          />
+          <img
+            src="img/Scissor.png"
+            class="m-auto w-20 rounded-full cursor-pointer"
+            alt="Scissor"
+            onclick="showResult('Scissor')"
+          />
+        </div>
+      </div>
+      <div class="container m-auto resultZone mt-8">
+        <table
+          class="table-auto text-white w-1/5 m-auto border border-spacing-2"
+          cellpadding="5"
+        >
+          <thead>
+            <tr>
+              <th class="border border-slate-100 w-1/3">Matches</th>
+              <th class="border border-slate-100 w-1/3">Win</th>
+              <th class="border border-slate-100 w-1/3">Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-100" id="Match">0</td>
+              <td class="border border-slate-100" id="Wins">0</td>
+              <td class="border border-slate-100" id="Loss">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div id="overlay" onclick="overlayOff()">
+      <h1 class="text-4xl text-center" id="text1"></h1>
+    </div>
+
+    </body>
+    <script>
+      let result = document.getElementById("result");
+      let getMatch = document.getElementById("Match");
+      let getWins = document.getElementById("Wins");
+      let getLoss = document.getElementById("Loss");
+      let finalResult = document.getElementById("text1");
+      let Match = 0,
+        Wins = 0,
+        Loss = 0;
+
+      function showResult(e) {
+        let Bot = Math.floor(Math.random() * 3) + 1;
+        Match++;
+        if (e == "Rock" && Bot == 1) {
+          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
+          Wins++;
+          clearResult();
+        } else if (e == "Paper" && Bot == 2) {
+          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
+          Wins++;
+          clearResult();
+        } else if (e == "Scissor" && Bot == 3) {
+          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
+          Wins++;
+          clearResult();
+        } else {
+          result.innerHTML = "Oops, Bot Won this time &#128517;!!!";
+          Loss++;
+          clearResult();
+        }
+
+        checkFinalResult();
+      }
+
+      function clearResult() {
+        setTimeout(() => {
+          result.innerHTML = "";
+        }, 2000);
+      }
+
+      function checkFinalResult() {
+        if (Match <= 10) {
+          getMatch.innerHTML = Match;
+          getWins.innerHTML = Wins;
+          getLoss.innerHTML = Loss;
+        } else {
+          if (Wins > Loss) {
+           
+            finalResult.innerHTML = "Game Over !!! <br /><br />You have beat the Browskie Bot &#x1F60D;";
+            overlayOn();
+          } else if (Wins == Loss) {
+            
+            finalResult.innerHTML = "Game Over !!! <br /><br />Good Fight... Try again... You can do it...&#128526;";
+            overlayOn();
+          } else {
+            finalResult.innerHTML = "Game Over !!! <br /><br />Better Luck next time &#128579;";
+            overlayOn();
+          }
+          
+        }
+      }
+      function overlayOn() {
+    document.getElementById("overlay").style.display = "block";
+    }
+      function overlayOff() {
+        document.getElementById("overlay").style.display = "none";
+        location.reload();
+    }
+    </script>
+  </body>
+</html>
