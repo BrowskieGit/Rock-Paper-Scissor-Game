@@ -78,6 +78,7 @@
               <th class="border border-slate-100 w-1/3">Matches</th>
               <th class="border border-slate-100 w-1/3">Win</th>
               <th class="border border-slate-100 w-1/3">Loss</th>
+              <th class="border border-slate-100 w-1/3">Draw</th>
             </tr>
           </thead>
           <tbody>
@@ -85,6 +86,7 @@
               <td class="border border-slate-100" id="Match">0</td>
               <td class="border border-slate-100" id="Wins">0</td>
               <td class="border border-slate-100" id="Loss">0</td>
+              <td class="border border-slate-100" id="Draw">0</td>
             </tr>
           </tbody>
         </table>
@@ -100,28 +102,60 @@
       let getMatch = document.getElementById("Match");
       let getWins = document.getElementById("Wins");
       let getLoss = document.getElementById("Loss");
+      let getDraw = document.getElementById("Draw");
       let finalResult = document.getElementById("text1");
       let Match = 0,
         Wins = 0,
         Loss = 0;
+      draw = 0;
 
       function showResult(e) {
         let Bot = Math.floor(Math.random() * 3) + 1;
         Match++;
-        if (e == "Rock" && Bot == 1) {
-          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
+        let botValue;
+        if (
+          (e == "Rock" && Bot == 3) ||
+          (e == "Paper" && Bot == 1) ||
+          (e == "Scissor" && Bot == 2)
+        ) {
+          if (Bot == 1) {
+            botValue = "Rock";
+          } else if (Bot == 2) {
+            botValue = "Paper";
+          } else {
+            botValue = "Scissor";
+          }
+          result.innerHTML =
+            "Hey, You Won this time &#x1F60D;!!! <br> Bot Choose: " + botValue;
           Wins++;
           clearResult();
-        } else if (e == "Paper" && Bot == 2) {
-          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
-          Wins++;
-          clearResult();
-        } else if (e == "Scissor" && Bot == 3) {
-          result.innerHTML = "Hey, You Won this time &#x1F60D;!!!";
-          Wins++;
+        } else if (
+          (e == "Rock" && Bot == 1) ||
+          (e == "Paper" && Bot == 2) ||
+          (e == "Scissor" && Bot == 3)
+        ) {
+          if (Bot == 1) {
+            botValue = "Rock";
+          } else if (Bot == 2) {
+            botValue = "Paper";
+          } else {
+            botValue = "Scissor";
+          }
+          result.innerHTML =
+            "Super, tough call... Match Draw... &#x1F60D;!!! <br> Bot Choose: " +
+            botValue;
+          draw++;
           clearResult();
         } else {
-          result.innerHTML = "Oops, Bot Won this time &#128517;!!!";
+          if (Bot == 1) {
+            botValue = "Rock";
+          } else if (Bot == 2) {
+            botValue = "Paper";
+          } else {
+            botValue = "Scissor";
+          }
+          result.innerHTML =
+            "Oops, Bot Won this time &#128517;!!! <br> Bot Choose: " + botValue;
           Loss++;
           clearResult();
         }
@@ -140,6 +174,7 @@
           getMatch.innerHTML = Match;
           getWins.innerHTML = Wins;
           getLoss.innerHTML = Loss;
+          getDraw.innerHTML = draw;
         } else {
           if (Wins > Loss) {
             finalResult.innerHTML =
