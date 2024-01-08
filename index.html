@@ -6,31 +6,7 @@
     <title>Rock Paper Scissor Game | Browskie</title>
     <link href="img/Browsky.png" rel="icon" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      #overlay {
-        position: fixed;
-        display: none;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 2;
-        cursor: pointer;
-      }
-      #text1,
-      #text2 {
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        font-size: 50px;
-        color: white;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-      }
-    </style>
+    <link href="css/style.css" rel="stylesheet" />
   </head>
   <body class="bg-gradient-to-r from-violet-500 to-fuchsia-500">
     <div class="container-fluid text-center">
@@ -41,34 +17,34 @@
 
       <div class="container m-auto playZone mt-5">
         <div>
-          <img src="img/Robot_signs.gif" class="m-auto w-1/5" alt="Robot" />
+          <img src="img/Robot_signs.gif" class="m-auto bannerImg" alt="Robot" />
           <p class="text-white text-1xl my-5" id="result"></p>
           <h4 class="text-2xl font-light text-white my-5">
             Please select your choice:
           </h4>
         </div>
-        <div class="flex flex-nowrap gap-5 w-1/4 mx-auto my-5">
+        <div class="flex flex-nowrap gap-5 mx-auto my-5 bannerImg">
           <img
             src="img/Rock.png"
-            class="m-auto w-20 rounded-full cursor-pointer"
+            class="m-auto rounded-full cursor-pointer bannerImg2"
             alt="Rock"
             onclick="showResult('Rock')"
           />
           <img
             src="img/Paper.png"
-            class="m-auto w-20 rounded-full cursor-pointer"
+            class="m-auto rounded-full cursor-pointer bannerImg2"
             alt="Paper"
             onclick="showResult('Paper')"
           />
           <img
             src="img/Scissor.png"
-            class="m-auto w-20 rounded-full cursor-pointer"
+            class="m-auto rounded-full cursor-pointer bannerImg2"
             alt="Scissor"
             onclick="showResult('Scissor')"
           />
         </div>
       </div>
-      <div class="container m-auto resultZone mt-8">
+      <div class="container m-auto resultZone mt-8 mb-3">
         <table
           class="table-auto text-white w-1/5 m-auto border border-spacing-2"
           cellpadding="5"
@@ -97,107 +73,6 @@
       <h1 class="text-4xl text-center" id="text1"></h1>
     </div>
 
-    <script>
-      let result = document.getElementById("result");
-      let getMatch = document.getElementById("Match");
-      let getWins = document.getElementById("Wins");
-      let getLoss = document.getElementById("Loss");
-      let getDraw = document.getElementById("Draw");
-      let finalResult = document.getElementById("text1");
-      let Match = 0,
-        Wins = 0,
-        Loss = 0;
-      draw = 0;
-
-      function showResult(e) {
-        let Bot = Math.floor(Math.random() * 3) + 1;
-        Match++;
-        let botValue;
-        if (
-          (e == "Rock" && Bot == 3) ||
-          (e == "Paper" && Bot == 1) ||
-          (e == "Scissor" && Bot == 2)
-        ) {
-          if (Bot == 1) {
-            botValue = "Rock";
-          } else if (Bot == 2) {
-            botValue = "Paper";
-          } else {
-            botValue = "Scissor";
-          }
-          result.innerHTML =
-            "Hey, You Won this time &#x1F60D;!!! <br> Bot Choose: " + botValue;
-          Wins++;
-          clearResult();
-        } else if (
-          (e == "Rock" && Bot == 1) ||
-          (e == "Paper" && Bot == 2) ||
-          (e == "Scissor" && Bot == 3)
-        ) {
-          if (Bot == 1) {
-            botValue = "Rock";
-          } else if (Bot == 2) {
-            botValue = "Paper";
-          } else {
-            botValue = "Scissor";
-          }
-          result.innerHTML =
-            "Super, tough call... Match Draw... &#x1F60D;!!! <br> Bot Choose: " +
-            botValue;
-          draw++;
-          clearResult();
-        } else {
-          if (Bot == 1) {
-            botValue = "Rock";
-          } else if (Bot == 2) {
-            botValue = "Paper";
-          } else {
-            botValue = "Scissor";
-          }
-          result.innerHTML =
-            "Oops, Bot Won this time &#128517;!!! <br> Bot Choose: " + botValue;
-          Loss++;
-          clearResult();
-        }
-
-        checkFinalResult();
-      }
-
-      function clearResult() {
-        setTimeout(() => {
-          result.innerHTML = "";
-        }, 2000);
-      }
-
-      function checkFinalResult() {
-        if (Match <= 10) {
-          getMatch.innerHTML = Match;
-          getWins.innerHTML = Wins;
-          getLoss.innerHTML = Loss;
-          getDraw.innerHTML = draw;
-        } else {
-          if (Wins > Loss) {
-            finalResult.innerHTML =
-              "Game Over !!! <br /><br />You have beat the Browskie Bot &#x1F60D;";
-            overlayOn();
-          } else if (Wins == Loss) {
-            finalResult.innerHTML =
-              "Game Over !!! <br /><br />Good Fight... Try again... You can do it...&#128526;";
-            overlayOn();
-          } else {
-            finalResult.innerHTML =
-              "Game Over !!! <br /><br />Better Luck next time &#128579;";
-            overlayOn();
-          }
-        }
-      }
-      function overlayOn() {
-        document.getElementById("overlay").style.display = "block";
-      }
-      function overlayOff() {
-        document.getElementById("overlay").style.display = "none";
-        location.reload();
-      }
-    </script>
+    <script src="js/app.js"></script>
   </body>
 </html>
